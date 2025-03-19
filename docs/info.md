@@ -9,12 +9,12 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+This project implements a 4-floor elevator controller in Verilog using a Finite State Machine (FSM) and a timer module. The controller responds to user requests, moving the elevator step-by-step between floors while maintaining the current state.
 
 ## How to test
 
-Explain how to use your project
+To test the elevator controller, first, reset the system by setting rst_n = 0 and then rst_n = 1. Next, request a floor by assigning a value to ui_in (e.g., ui_in = 4'b0100 for Floor 2). Observe the uo_out signal, which indicates the current floor. The elevator moves step-by-step, transitioning floors every one second. Test different cases such as moving up, moving down, or staying on the same floor. You can simulate the design using a testbench or implement it on an FPGA for real-world testing.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+GPIO, LED
