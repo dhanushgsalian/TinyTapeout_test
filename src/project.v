@@ -23,7 +23,8 @@ module tt_um_escalator (
 
     reg [3:0] present_floor;
     wire [3:0] requested_floor;
-
+    wire reset;
+	
     assign reset = rst_n;
     assign ui_in = requested_floor; 
     assign uo_out = present_floor;
@@ -38,9 +39,9 @@ module tt_um_escalator (
 
     wire one_sec_timer;
 
-	timer q1(.reset(reset), 
-			.clk(clk),
-			.one_sec_timer(one_sec_timer));
+    timer q1(.reset(reset), 
+	     .clk(clk),
+	     .one_sec_timer(one_sec_timer));
 			
     // State Transition Logic
     always @(posedge clk or posedge reset) begin
