@@ -1,6 +1,6 @@
 module timer (input reset, clk, output reg one_sec_timer);
 
-//`define SIM
+`define SIM
 `ifdef SIM
     localparam FREQ = 50;               //1 us delay  @50 MHz clock
 `else
