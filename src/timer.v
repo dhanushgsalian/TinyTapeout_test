@@ -8,7 +8,7 @@ module timer (input reset, clk, output reg one_sec_timer);
 `endif
 
 
-localparam SEC_WIDTH    = 3;
+//localparam SEC_WIDTH    = 3;
 
 reg [25: 0] count;
 
