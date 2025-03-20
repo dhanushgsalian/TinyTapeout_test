@@ -26,8 +26,8 @@ module tt_um_escalator (
     wire reset;
 	
     assign reset = ~rst_n;
-    assign requested_floor = ui_in; 
-    assign uo_out = present_floor;
+    assign requested_floor = ui_in[3:0];  // Explicitly take lower 4 bits
+    assign uo_out = {4'b0000, present_floor};  // Ensure 8-bit width
     
     // Define states for different floors
     parameter FLOOR_0 = 4'b0001;
@@ -40,8 +40,8 @@ module tt_um_escalator (
     wire one_sec_timer;
 
     timer q1(.reset(reset), 
-	     .clk(clk),
-	     .one_sec_timer(one_sec_timer));
+             .clk(clk),
+             .one_sec_timer(one_sec_timer));
 			
     // State Transition Logic
     always @(posedge clk or posedge reset) begin
