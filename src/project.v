@@ -26,7 +26,7 @@ module tt_um_escalator (
     wire reset;
 	
     assign reset = ~rst_n;
-    assign ui_in = requested_floor; 
+    assign requested_floor = ui_in; 
     assign uo_out = present_floor;
     
     // Define states for different floors
