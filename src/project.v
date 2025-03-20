@@ -21,27 +21,30 @@ module tt_um_escalator (
   // List all unused inputs to prevent warnings
     wire _unused = &{ena, uio_in, uio_out, uio_oe, 1'b0};
 
-    reg [3:0] present_floor;
-    wire [3:0] requested_floor;
+    reg [1:0] present_floor;
+    wire [1:0] requested_floor;
     wire reset;
 	
     assign reset = ~rst_n;
-    assign requested_floor = ui_in; 
-    assign uo_out = present_floor;
-    
-    // Define states for different floors
-    parameter FLOOR_0 = 4'b0001;
-    parameter FLOOR_1 = 4'b0010;
-    parameter FLOOR_2 = 4'b0100;
-    parameter FLOOR_3 = 4'b1000;
+    assign requested_floor = ui_in[1:0];  // Use only 2 LSBs for floor requests
 
-    reg [3:0] state, next_state;
+    // Assign only lower 4 bits to uo_out (avoid width mismatch)
+    assign uo_out[3:0] = present_floor;
+    assign uo_out[7:4] = 4'b0000; // Zero out upper bits
+    
+    // Define states for different floors (Binary Encoding)
+    parameter FLOOR_0 = 2'b00;
+    parameter FLOOR_1 = 2'b01;
+    parameter FLOOR_2 = 2'b10;
+    parameter FLOOR_3 = 2'b11;
+
+    reg [1:0] state, next_state;
 
     wire one_sec_timer;
 
     timer q1(.reset(reset), 
-	     .clk(clk),
-	     .one_sec_timer(one_sec_timer));
+             .clk(clk),
+             .one_sec_timer(one_sec_timer));
 			
     // State Transition Logic
     always @(posedge clk or posedge reset) begin
