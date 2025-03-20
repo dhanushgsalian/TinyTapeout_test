@@ -19,10 +19,10 @@ module tt_um_escalator (
 
 
   // List all unused inputs to prevent warnings
-	wire _unused = &{ena, uio_in, uio_out, uio_oe, ui_in[7:4], 1'b0};
+    wire _unused = &{ena, uio_in, uio_out, uio_oe, 1'b0};
 
     reg [3:0] present_floor;
-    wire [3:0] requested_floor;
+    wire [7:0] requested_floor;
     wire reset;
 	
     assign reset = ~rst_n;
